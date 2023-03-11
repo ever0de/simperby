@@ -63,6 +63,9 @@ jobs:
           profile: minimal
           override: true
 
+      - name: Install wasm32 target
+        run: rustup target add wasm32-unknown-unknown
+
       - name: Run cargo build simperby-common
         uses: actions-rs/cargo@v1
         with:
