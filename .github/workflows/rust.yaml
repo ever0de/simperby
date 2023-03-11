@@ -50,6 +50,31 @@ jobs:
         with:
           command: test
           args: --all --all-targets --all-features
+  wasm:
+    name: wasm target build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          override: true
+
+      - name: Run cargo build simperby-common
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: -p simperby-common --all-targets --all-features --target wasm32-unknown-unknown
+
+      - name: Run cargo build simperby-light-client
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: -p simperby-light-client --all-targets --all-features --target wasm32-unknown-unknown
+
   gendoc:
     name: Check runtime docs (gendoc)
     runs-on: ubuntu-latest
